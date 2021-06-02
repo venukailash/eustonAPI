@@ -38,3 +38,12 @@ return res.status(404).send(err);
 res.status(200).json({ message:"Driver successfully deleted"});
 });
 };
+
+exports.getOneDriver = async (req, res) => {
+    await Driver.findById({_id:req.params.id},(err, driver) => {
+        if(err){
+            res.status(500).send(err);
+        }
+        res.status(200).json(driver);
+    })
+}

@@ -1,31 +1,34 @@
 'use strict'
 
 // require express and bodyParser
-const  express = require("express");
-const  bodyParser = require("body-parser");
+const express = require("express");
+const bodyParser = require("body-parser");
+
+// require Routers
+const driverRouter = require('./api/routes/driverRoutes')
+const registrationRouter = require('./api/routes/registrationRoutes')
 
 // create express app
-const  app = express();
+const app = express();
 app.use(express.json());
-app.use(express.urlencoded({ extended:true }));
+app.use(express.urlencoded({ extended: true }));
 
 // Import DB Connection
 require("./config/db");
 
-// Import API route
-var routes = require('./api/routes/driverRoutes'); //importing route
-routes(app);
-
 // define port to run express app
-const  port = process.env.PORT || 3030;
+const port = process.env.PORT || 3030;
 
-// Add endpoint
+// Add Test endpoint
 app.get('/', (req, res) => {
-res.send("Hello World");
+    res.send("App is working...");
 });
+
+// Use Routes
+app.use('/driver', driverRouter);
+app.use('/registration', registrationRouter);
 
 // Listen to server
 app.listen(port, () => {
-
-console.log(`Server running at http://localhost:${port}`);
+    console.log(`Server running at http://localhost:${port}`);
 });

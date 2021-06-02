@@ -1,18 +1,15 @@
-'use strict';
+const driverRouter = require('express').Router();
+var driverList = require('../controllers/driverController');
 
-// create App function
-    module.exports = function(app) {
-        var driverList = require('../controllers/driverController');
+driverRouter
+    .route("/")
+    .get(driverList.listAllDrivers)
+    .post(driverList.createNewDriver)
 
+driverRouter
+    .route("/:id")
+    .get(driverList.getOneDriver)
+    .put(driverList.updateDriver)
+    .delete(driverList.deleteDriver)
 
-// get and post request for /driver endpoints
-        app
-        .route("/drivers")
-        .get(driverList.listAllDrivers)
-        .post(driverList.createNewDriver)
-
-        app
-        .route("/driver/:id")
-        .put(driverList.updateDriver)
-        .delete(driverList.deleteDriver);
-    };
+module.exports = driverRouter;
