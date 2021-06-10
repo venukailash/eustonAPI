@@ -2,7 +2,7 @@
 
 // require express and bodyParser
 const express = require("express");
-const bodyParser = require("body-parser");
+const cors = require('cors');
 
 // require Routers
 const driverRouter = require('./api/routes/driverRoutes')
@@ -10,6 +10,7 @@ const registrationRouter = require('./api/routes/registrationRoutes')
 
 // create express app
 const app = express();
+app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
